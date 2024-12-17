@@ -1,0 +1,21 @@
+[package]
+name = "cairo_vm_rs_py"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.82.0"
+
+[lib]
+# The name of the native library. This is the name which will be used in Python to import the
+# library (i.e. `import cairo_vm_rs_py`). If you change this, you must also change the name of the
+# `#[pymodule]` in `src/lib.rs`.
+name = "cairo_vm_rs_py"
+# "cdylib" is necessary to produce a shared library for Python to import from.
+#
+# Downstream Rust code (including code in `bin/`, `examples/`, and `tests/`) will not be able
+# to `use cairo_vm_rs_py;` unless the "rlib" or "lib" crate type is also included, e.g.:
+# crate-type = ["cdylib", "rlib"]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+cairo-vm = { version = "1.0.1" }
+pyo3 = { version = "0.23.3", features = ["extension-module"] }
